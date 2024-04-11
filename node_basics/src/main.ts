@@ -42,7 +42,6 @@ function payToEmployee(employee: Developer | Supervisor) {
     }
 }
 
-// No funciona
 const payToEmployee2 = (employee: Developer | Supervisor): string => {
     
     let response = '';
@@ -57,7 +56,6 @@ const payToEmployee2 = (employee: Developer | Supervisor): string => {
     return response;
 }
 
-// Tampoco funciona
 function payToEmployee3(employee: Developer | Supervisor, 
     countSubordinates: (employee: Supervisor) => string) 
 {
