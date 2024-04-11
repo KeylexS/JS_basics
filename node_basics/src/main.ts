@@ -42,10 +42,11 @@ function payToEmployee(employee: Developer | Supervisor) {
     }
 }
 
+// No funciona
 const payToEmployee2 = (employee: Developer | Supervisor): string => {
     
     let response = '';
-    
+
     response += 'Se pagó ' + employee.salary + ' al empleado ' + employee.id;
     
     if(employee.hasOwnProperty('subordinates')){
@@ -56,6 +57,7 @@ const payToEmployee2 = (employee: Developer | Supervisor): string => {
     return response;
 }
 
+// Tampoco funciona
 function payToEmployee3(employee: Developer | Supervisor, 
     countSubordinates: (employee: Supervisor) => string) 
 {
@@ -63,7 +65,7 @@ function payToEmployee3(employee: Developer | Supervisor,
     console.log( 'Se pagó ' + employee.salary + ' al empleado ' + employee.id );
     
     if(employee.hasOwnProperty('subordinates')){
-        countSubordinates(employee as Supervisor);
+        console.log(countSubordinates(employee as Supervisor));
     }
 }
 
@@ -73,5 +75,5 @@ const countSubordinates = function(employee: Supervisor) {
 }
 
 payToEmployee(developer1);
-payToEmployee2(developer2);
+console.log(payToEmployee2(developer2));
 payToEmployee3(supervisor1, countSubordinates);
