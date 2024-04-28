@@ -31,7 +31,7 @@ const supervisor1 : Supervisor = {
     subordinates: [ developer1ID, developer2ID]
 };
 
-
+//Normal function
 function payToEmployee(employee: Developer | Supervisor) {
     
     console.log( 'Se pagó ' + employee.salary + ' al empleado ' + employee.id );
@@ -42,6 +42,7 @@ function payToEmployee(employee: Developer | Supervisor) {
     }
 }
 
+//Arrow function/lambda function
 const payToEmployee2 = (employee: Developer | Supervisor): string => {
     
     let response = '';
@@ -56,8 +57,9 @@ const payToEmployee2 = (employee: Developer | Supervisor): string => {
     return response;
 }
 
-function payToEmployee3(employee: Developer | Supervisor, 
-    countSubordinates: (employee: Supervisor) => string) 
+//Call back
+function payToEmployee3(employee: Developer | Supervisor,
+    countSubordinates: (employee: Supervisor) => string)
 {
 
     console.log( 'Se pagó ' + employee.salary + ' al empleado ' + employee.id );

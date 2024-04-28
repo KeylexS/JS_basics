@@ -4,7 +4,8 @@
   "description": "practice of nodeJS",
   "scripts": {
     "start": "tsc && node dist/main.js",
-    "build": "tsc && concurrently --kill-others \"tsc --watch\" \"nodemon dist/main.js\""
+    "build": "tsc && concurrently --kill-others \"tsc --watch\" \"nodemon dist/main.js\"",
+    "start-array": "tsc && node dist/array-functions/main.js"
   },
   "main": "index.js",
   "author": "KeylexS",
