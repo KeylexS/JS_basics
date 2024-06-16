@@ -115,9 +115,9 @@ console.log("3", descendingPriceMenu);
 
 // 4.  Cree una variable 'opciones' que contenga únicamente los nombres de los ítems del menú, ordenados alfabéticamente.
 
-const options = menu.map(item => item.nombre).sort( (a, b) => a - b);
+//const options = menu.map(item => item.nombre).sort( (a, b) => a - b);
 
-console.log("4", options);
+//console.log("4", options);
 
 // 5.  Suponga que los descuentos se suman (si varios aplican para el mismo item). Cree una variable 'menuFullDescuentos'
 // que contenga los items del menú con todos los descuentos aplicados.

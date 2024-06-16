@@ -136,7 +136,7 @@
     de cada "then" debe retornar un promise que ejecute la operación que sigue en la lista.
 
 
-    3. Recupere en paralelo 3 'todos' del API público en jsonplaceholder.typicode.com. Luego convierta cada respuesta de JSON 
+    3. Recupere en paralelo 3 'todos' del API público en jsonplaceholder.typicode.com. Luego convierta cada respuesta de JSON
     a un objeto de Javascript e imprimalos en consola.
 
     Puede usar los siguientes links:
@@ -152,3 +152,106 @@
     imprima en consola. Finalmente, invoque la función y verifique que imprima "Hola mundo".
 
 */
+
+// 1 Cree un promise que, luego de esperar 2 segundos, tenga 50% de probabilidad de resolverse con el string "Exito" 
+// y 50% de probabilidad de ser rechazado con el mensaje "Error!".
+
+const miPromise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        if(Math.random() > 0.5){
+            resolve('Exito');
+        }else{
+            reject('Error');
+        }
+    }, 2000);
+});
+
+miPromise
+.then( resultado => console.log(resultado) )
+.catch( error => console.error(error) );
+
+
+// 2 Utilice encadenamiento de promises para pasar un input numérico por la siguiente serie ordenada de operaciones matemáticas:
+//             1: Multiplicar por 5
+//             2: Restar 9
+//             3: Dividir entre 6
+
+// Solución fallida (preguntar cómo)
+// const miCadenaDePromises = new Promise((resolve, reject) => {
+//     resolve(5);
+//     const promise = new Promise((resolve, reject) => {
+//         resolve(9);
+//         const secondPromise = new Promise((resolve, reject) => {
+//             resolve(6);
+//         });
+
+//         resolve(secondPromise);
+//     });
+
+//     resolve(promise);
+// });
+
+function multiplicarPorCinco(numero: number): Promise<number> {
+    return new Promise(resolve => resolve(numero * 5));
+}
+
+function restarNueve(numero: number): Promise<number> {
+    return new Promise(resolve => resolve(numero - 9));
+}
+
+function dividirEntreSeis(numero: number): Promise<number> {
+    return new Promise(resolve => {
+        if (numero === 0) {
+            resolve(0); //Evitar multiplicar por 0
+        } else {
+            resolve(numero / 6);
+        }
+    });
+}
+
+async function procesarNumero(input: number): Promise<void> {
+    try {
+        const resultadoFinal = await multiplicarPorCinco(input)
+        .then(multiplicarPorCinco => restarNueve(multiplicarPorCinco))
+        .then(restarNueve => dividirEntreSeis(restarNueve));
+
+        console.log(resultadoFinal);
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+procesarNumero(11).catch(error => console.error(error));
+
+
+// 3. Recupere en paralelo 3 'todos' del API público en jsonplaceholder.typicode.com. Luego convierta cada respuesta de JSON
+//     a un objeto de Javascript e imprimalos en consola.
+
+const promiseF1 = fetch('https://jsonplaceholder.typicode.com/todos/1').then( response => response.json() );
+
+const promiseF2 = fetch('https://jsonplaceholder.typicode.com/todos/2').then( response => response.json() );
+
+const promiseF3 = fetch('https://jsonplaceholder.typicode.com/todos/3').then( response => response.json() );
+
+
+Promise.all([ promiseF1, promiseF2, promiseF3]).then( json => console.log(json));
+
+
+// 4. Escriba un promise que resuelva con el string "Hola" y otro promise que resuelva con el string " mundo".
+// Luego, escriba una función utilizando async/await que espere por ambos promises, concatene ambos resultados y los
+// imprima en consola. Finalmente, invoque la función y verifique que imprima "Hola mundo".
+
+
+const promiseHola = Promise.resolve('Hola');
+const promiseMundo = Promise.resolve('Mundo');
+
+
+async function printHolaMundo() {
+    let saludo = '';
+    saludo = await promiseHola;
+    saludo += " " + await promiseMundo;
+
+    console.log(saludo);
+}
+
+printHolaMundo();
