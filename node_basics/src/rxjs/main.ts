@@ -1,4 +1,4 @@
-import { Observable, Subject, from, of, interval, map, take, takeUntil, filter, catchError, switchMap } from 'rxjs';
+import { Observable, Subject, from, of, interval, map, take, takeUntil, filter, catchError, switchMap, timer } from 'rxjs';
 
 /*
 Observables:
@@ -184,8 +184,8 @@ Ejercicios:
 
 	Luego, suscríbase al observable e imprima el resultado, ya sea el valor emitido o el error.
 	Para crear el observable utilice new Observable().
-.
 */
+
 function isPositive(Q: number){
 	return new Observable( observer => {
 		setTimeout(() => {
@@ -212,18 +212,18 @@ isPositive(-3).subscribe(
 
 */
 
-of(4)
-	.pipe(
-		filter(x => {
-			if (x >= 0)
-				return true;
+timer(1000).pipe(
+	map( () => -2 ),
+	filter(x => {
+		if (x >= 0)
+			return true;
 		
-			throw new Error(`${x} es negativo`);
-		})
-	).subscribe({
-		next: x => console.log(x),
-		error: err => console.error(err)
-	});
+		throw new Error(`${x} es negativo`);
+	})
+).subscribe({
+	next: x => console.log(x),
+	error: err => console.error(err)
+});
 
 /*
 
